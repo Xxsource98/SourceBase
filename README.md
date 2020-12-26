@@ -7,6 +7,7 @@ For Build Project you have to install [CMake Binaries](https://cmake.org/downloa
 Create a Folder and Open terminal in that, then use this commands: 
 ```
     git clone https://github.com/Xxsource98/SourceBase.git
+    cd SourceBase
     mkdir build
     cd build
     cmake ..

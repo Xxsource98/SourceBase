@@ -6,15 +6,15 @@ Easy to Use and Efficient Trainer Menu Base for Grand Theft Auto V.
 For Build Project you have to install [CMake Binaries](https://cmake.org/download/) to Your System. 
 Create a Folder and Open terminal in that, then use this commands: 
 ```
-    git clone https://github.com/Xxsource98/SourceBase.git <br/>
-    mkdir build <br/>
-    cd build <br />
+    git clone https://github.com/Xxsource98/SourceBase.git
+    mkdir build
+    cd build
     cmake ..
 ```
 After above steps, you are able to open project with a base. You can build an asi file via cmake by commands:
 ```
-    cd build <br/>
-    cmake -DCMAKE_BUILD_TYPE=Release .  (You can change Release to a Debug) <br/>
+    cd build
+    cmake -DCMAKE_BUILD_TYPE=Release .  (You can change Release to a Debug)
 ```
 
 # License

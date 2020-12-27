@@ -30,8 +30,11 @@ The "main" file is `script.cpp` where you are calling all drawing functions. The
     SubmenuOption - Option for change current Submenu
 ```
 You have to call `registerSubmenu` function from `Menu` class. It is registering your submenu and you can put all options there for registered submenu.
-But that's not all, You have to first make a pointer and draw loop for a base class. The arguments of constructor are: `std::string menuName, MENU_STRUCT menuStruct`, where `menuName` is a displaying menu name and `menuStruct` is a struct, which has menu binds and menu colors. In the `MainLoop` void function, you have to create a pointer (I recommend to use a smart pointer, I used shared_ptr, because You can create multiple menus in one project). You have to make here a `while` loop and call a `draw` function from the `Menu` class. Don't forget to add a `WAIT(0)` after every while in a project, it's important for a ScriptHookV.
-<b>All examples are in `script.cpp` file.</b>
+But that's not all, You have to first make a pointer and draw loop for a base class. The arguments of constructor are: `std::string menuName, MENU_STRUCT menuStruct`, where `menuName` is a displaying menu name and `menuStruct` is a struct, which has menu binds and menu colors. <br/>
+In the `MainLoop` void function, you have to create a pointer (I recommend to use a smart pointer, I used shared_ptr, because You can create multiple menus in one project). You have to make here a `while` loop and call a `draw` function from the `Menu` class. Don't forget to add a `WAIT(0)` after every while in a project, it's important for a ScriptHookV. <br/><br/>
+<b>All examples are in `script.cpp` file.</b> <br/>
+<b>For load .asi mods you have to download a [ScriptHookV](http://www.dev-c.com/gtav/scripthookv/)</b>
+
 
 
 # Features

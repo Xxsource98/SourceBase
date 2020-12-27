@@ -6,28 +6,28 @@ Easy to use and efficient trainer menu base for Grand Theft Auto V.
 For build project You have to install [CMake Binaries](https://cmake.org/download/) to Your system. 
 Create a Folder and Open terminal in that, then use this commands: 
 ```
-    git clone https://github.com/Xxsource98/SourceBase.git
-    cd SourceBase
-    mkdir build
-    cd build
-    cmake ..
+git clone https://github.com/Xxsource98/SourceBase.git
+cd SourceBase
+mkdir build
+cd build
+cmake ..
 ```
 Or You can even use CMake GUI version for easier create project.
 
 After above steps, you are able to open project with a base. You can build an asi file via cmake by commands:
 ```
-    cd build
-    cmake -DCMAKE_BUILD_TYPE=Release .  (You can change Release to a Debug)
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release .  (You can change Release to a Debug)
 ```
 
 # How to Use
 The "main" file is `script.cpp` where you are calling all drawing functions. There are few possible to draw options: 
 ```
-    BlankOption - Empty Option
-    ToggleOption - Toggling Boolean Variable Option
-    SliderOption - Slider Option, supporting: float, int
-    VectorOption - Vector Option for drawing multiple strings on slide, supporting: std::vector<std::string>
-    SubmenuOption - Option for change current Submenu
+BlankOption - Empty Option
+ToggleOption - Toggling Boolean Variable Option 
+SliderOption - Slider Option, supporting: float, int
+VectorOption - Vector Option for drawing multiple strings on slide, supporting: std::vector<std::string>
+SubmenuOption - Option for change current Submenu
 ```
 You have to call `registerSubmenu` function from `Menu` class. It is registering your submenu and you can put all options there for registered submenu.
 But that's not all, You have to first make a pointer and draw loop for a base class. The arguments of constructor are: `std::string menuName, MENU_STRUCT menuStruct`, where `menuName` is a displaying menu name and `menuStruct` is a struct, which has menu binds and menu colors. <br/>

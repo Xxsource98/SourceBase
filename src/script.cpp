@@ -101,7 +101,7 @@ void Source::MainLoop()
 	MENU_STRUCT menuStruct;
 	menuStruct.menuColors.mainRect = RGBA(108, 92, 231, 245); // Example overwrite on the main menu struct
 
-	std::shared_ptr<Menu> menu = std::make_shared<Menu>("Source Base", menuStruct);
+	const std::shared_ptr<Menu> menu = std::make_shared<Menu>("Source Base", menuStruct);
 
 	while (true)
 	{

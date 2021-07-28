@@ -41,6 +41,8 @@ In the `MainLoop` void function, you have to create a pointer (I recommend to us
 ```
 - Responsive and Modern UI
 - Easy to Use
+- Smooth Scroller
+- Fade in/out Animation
 - Efficient code
 - Support for Controller
 - Support for Create a couple Menus in One Project

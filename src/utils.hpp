@@ -1,7 +1,31 @@
+/*
+	Last Update Date: 2021-07-28
+	Trainer Base Created by: Xxsource98
+	Github Link: https://github.com/Xxsource98/SourceBase
+	Project License: GNU General Public License v3.0
+	Base Version: 1.1
+*/
+
 #pragma once
 #include <natives.h>
 #include <enums.h>
 #include "structs.hpp"
+
+static void EnableDebugConsole()
+{
+	AllocConsole();
+	auto fp = freopen("CONOUT$", "w", stdout);
+}
+
+#ifndef NDEBUG
+	#define DO_DEBUG(func) func()
+	#define ENABLE_CONSOLE EnableDebugConsole()
+	#define FREE_CONSOLE FreeConsole()
+#else 
+	#define DO_DEBUG(func) void()
+	#define ENABLE_CONSOLE void()
+	#define FREE_CONSOLE void()
+#endif
 
 namespace Utils
 {

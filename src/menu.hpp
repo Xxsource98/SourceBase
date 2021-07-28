@@ -1,14 +1,15 @@
 /*
-	Last Update Date: 2020-12-25
+	Last Update Date: 2021-07-28
 	Trainer Base Created by: Xxsource98
-	Github Link:
+	Github Link: https://github.com/Xxsource98/SourceBase
 	Project License: GNU General Public License v3.0
-	Base Version: 1.0
+	Base Version: 1.1
 */
 
 #pragma once
 #include <Windows.h>
 #include <string>
+#include <cmath>
 #include <natives.h>
 #include <enums.h>
 #include "structs.hpp"
@@ -68,6 +69,9 @@ namespace Source {
 		void drawOptions() const;
 		void drawFooter() const;
 		void drawInfo(Option* option) const;
+		void handleScrollbar() const;
+
+		void handleFadeAnimation() const;
 
 	private:
 		std::shared_ptr<Timer> p_delay;
@@ -78,6 +82,7 @@ namespace Source {
 		mutable std::vector<eControl> p_controlsToDisable;
 		mutable std::string p_menuName;
 		mutable MENU_COLORS p_menuColors;
+		mutable MENU_COLORS p_defaultMenuColors;
 		mutable MENU_BINDS p_menuBinds;
 		mutable MENU_CONTROLLER_BINDS p_menuContrBinds;
 		mutable Vec2 p_menuSize;
@@ -89,6 +94,12 @@ namespace Source {
 		mutable std::uint32_t p_lastOption;
 		mutable std::uint32_t p_currentOption;
 		mutable std::uint32_t p_maxVisibleOptions;
+		mutable float p_currentYOption;
+		mutable float p_scrollerSpeed;
+		mutable float p_menuOpacityMultiplier;
+		mutable float p_menuFadeSpeed;
+		mutable bool p_onMenuOpen;
+		mutable bool p_onMenuClose;
 		mutable bool p_menuOpened;
 	};
 }

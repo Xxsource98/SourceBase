@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.12)
 
 project(SourceBase)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 include_directories(ScriptHookV/inc)
 link_directories(ScriptHookV/lib)
 set(CMAKE_SUPPRESS_REGENERATION true)

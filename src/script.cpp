@@ -1,9 +1,9 @@
 /*
-	Last Update Date: 2020-12-25
+	Last Update Date: 2021-07-28
 	Trainer Base Created by: Xxsource98
-	Github Link:
+	Github Link: https://github.com/Xxsource98/SourceBase
 	Project License: GNU General Public License v3.0
-	Base Version: 1.0
+	Base Version: 1.1
 */
 
 #include <main.h>
@@ -31,11 +31,11 @@ void MenuOptions(Source::Menu* curMenu)
 	static auto position = curMenu->getPosition().Get();
 
 	curMenu->registerSubmenu("Main Menu", "main", [curMenu] {
-		curMenu->addOption(new Options::SliderOption("Position X", &position.x, 0.f, 1100.f, 10.f, "", [curMenu] {
+		curMenu->addOption(new Options::SliderOption("Position X", &position.x, 190.f, 1100.f, 10.f, "", [curMenu] {
 			curMenu->setPosition(Vec2(position.x, position.y));
 			}));
 
-		curMenu->addOption(new Options::SliderOption("Position Y", &position.y, 0.f, 1200.f, 10.f, "Example Float Slider Option", [curMenu] {
+		curMenu->addOption(new Options::SliderOption("Position Y", &position.y, 50.f, 270.f, 10.f, "Example Float Slider Option", [curMenu] {
 			curMenu->setPosition(Vec2(position.x, position.y));
 			}));
 

@@ -1,3 +1,11 @@
+/*
+	Last Update Date: 2021-07-28
+	Trainer Base Created by: Xxsource98
+	Github Link: https://github.com/Xxsource98/SourceBase
+	Project License: GNU General Public License v3.0
+	Base Version: 1.1
+*/
+
 #include "Menu.hpp"
 
 namespace Source 
@@ -7,15 +15,22 @@ namespace Source
 		this->p_menuName = menuName;
 		this->p_menuColors = menuStruct.menuColors;
 		this->p_menuBinds = menuStruct.menuBinds;
+		this->p_defaultMenuColors = this->p_menuColors;
 		this->p_menuContrBinds = menuStruct.menuControllerBinds;
 		this->p_delay = std::make_shared<Timer>(std::chrono::milliseconds(130));
 		this->p_menuSize = Vec2(300.f, 90.f);
 		this->p_menuPosition = Vec2(260.f, 100.f);
 		this->p_currentSubmenu = "main";
 		this->p_menuOpened = false;
+		this->p_onMenuClose = false;
+		this->p_onMenuOpen = false;
 		this->p_currentOption = 1;
 		this->p_maxVisibleOptions = 9;
 		this->p_submenuLevel = 0;
+		this->p_menuOpacityMultiplier = 0.f;
+		this->p_currentYOption = 1.f;
+		this->p_scrollerSpeed = 0.25f;
+		this->p_menuFadeSpeed = 0.2f;
 		this->p_controlsToDisable = {
 			ControlPhone,
 			ControlWeaponWheelUpDown,
@@ -77,6 +92,7 @@ namespace Source
 
 		this->checkBinds();
 		this->resetKeyboard();
+		this->handleFadeAnimation();
 		featuresLoop();
 	}
 
@@ -209,8 +225,8 @@ namespace Source
 		}
 		else
 		{
-			this->p_menuOpened = false;
-			this->p_currentSubmenu = "null";
+			this->p_onMenuOpen = false;
+			this->p_onMenuClose = true;
 		}
 	}
 
@@ -242,8 +258,19 @@ namespace Source
 	void Menu::checkBinds() const
 	{
 		if (this->p_pressedKeys.OPEN)
-		{
-			this->p_menuOpened = !this->p_menuOpened;
+		{	
+			if (this->p_menuOpened)
+			{
+				this->p_onMenuOpen = false;
+				this->p_onMenuClose = true;
+			}
+			else
+			{
+				this->p_menuOpened = true;
+				this->p_onMenuOpen = true;
+				this->p_onMenuClose = false;
+			}
+
 			if (this->p_currentSubmenu == "main" || this->p_currentSubmenu == "null")
 			{
 				this->p_shownSubmenus.clear();
@@ -251,6 +278,7 @@ namespace Source
 				this->p_shownSubmenus.push_back(this->p_currentSubmenu);
 				this->p_submenuLevel = 0;
 			}
+			
 			this->playSound("HUD_FRONTEND_DEFAULT_SOUNDSET", "CONTINUE");
 		}
 
@@ -392,7 +420,7 @@ namespace Source
 
 			Utils::drawSprite("commonmenu", currentSprite,
 				this->p_menuPosition + Vec2((this->p_menuSize.Get().x / 2.21f), currentOption * 30.f + (this->p_menuSize.Get().y / 1.5f)),
-				Vec2(38.5f, 38.5f), RGBA(255, 255, 255));
+				Vec2(38.5f, 38.5f), this->p_menuColors.sprites);
 		}
 
 		if (option->getOptionType() == "Slider")
@@ -504,7 +532,6 @@ namespace Source
 				option->useFunction();
 			}
 		}
-
 	}
 
 	void Menu::drawOption(Option* option, std::uint32_t ID) const
@@ -515,7 +542,7 @@ namespace Source
 
 		Utils::drawRect(this->p_menuPosition + Vec2(0.f, ID * 30.f + (this->p_menuSize.Get().y / 1.5f)),
 			Vec2(this->p_menuSize.Get().x, 30.f),
-			isSelected ? this->p_menuColors.scroller : this->p_menuColors.background);
+			this->p_menuColors.background);
 
 		Utils::drawText(option->getLeftText(),
 			this->p_menuPosition + Vec2(-(this->p_menuSize.Get().x / 2.0689f), ID * 30.f + (this->p_menuSize.Get().y / 1.8947f)),
@@ -526,8 +553,6 @@ namespace Source
 			this->p_menuPosition + Vec2((this->p_menuSize.Get().x / 2.0689f), ID * 30.f + (this->p_menuSize.Get().y / 1.8947f)),
 			50.f,
 			isSelected ? this->p_menuColors.selectedOptionText : this->p_menuColors.optionText, false, true);
-
-		this->drawOptionValues(option, ID, isSelected);
 
 		isSelected ? this->drawInfo(option) : void();
 	}
@@ -552,6 +577,18 @@ namespace Source
 		for (std::uint32_t i = start; i < end; i++)
 		{
 			drawOption(options.at(i), curOption);
+			curOption++;
+		}
+		curOption = 1;
+
+		this->handleScrollbar();
+
+		// Second loop for create options values (like a sprites) in front of the scroller
+		for (std::uint32_t i = start; i < end; i++)
+		{
+			bool isSelected = (this->p_currentOption >= this->p_maxVisibleOptions ? this->p_maxVisibleOptions : this->p_currentOption) == curOption;
+
+			this->drawOptionValues(options.at(i), curOption, isSelected);
 			curOption++;
 		}
 
@@ -603,5 +640,43 @@ namespace Source
 				50.f,
 				this->p_menuColors.descriptionText, false, false, false, 0.2642f);
 		}
+	}
+	
+	void Menu::handleScrollbar() const
+	{		
+		if (this->p_currentOption > this->p_maxVisibleOptions)
+			this->p_currentYOption = std::lerp(this->p_currentYOption, static_cast<float>(this->p_maxVisibleOptions), this->p_scrollerSpeed);
+		else
+			this->p_currentYOption = std::lerp(this->p_currentYOption, static_cast<float>(this->p_currentOption), this->p_scrollerSpeed);
+
+		Utils::drawRect(this->p_menuPosition + Vec2(0.f, this->p_currentYOption * 30.f + (this->p_menuSize.Get().y / 1.5f)),
+			Vec2(this->p_menuSize.Get().x, 30.f),
+			this->p_menuColors.scroller);
+	}
+
+	void Menu::handleFadeAnimation() const
+	{
+		if (this->p_onMenuOpen && !this->p_onMenuClose)
+		{
+			p_menuOpacityMultiplier = std::lerp(p_menuOpacityMultiplier, 1.f, this->p_menuFadeSpeed);
+
+			if ((int)(p_menuOpacityMultiplier + 0.05f) == 1)
+			{
+				this->p_onMenuOpen = false;
+			}
+		}
+
+		if (this->p_onMenuClose && !this->p_onMenuOpen)
+		{
+			p_menuOpacityMultiplier = std::lerp(p_menuOpacityMultiplier, 0.f, this->p_menuFadeSpeed);
+
+			if (p_menuOpacityMultiplier < 0.01f)
+			{
+				this->p_menuOpened = false;
+				this->p_onMenuClose = false;
+			}
+		}
+
+		this->p_menuColors.UpdateAlpha(this->p_defaultMenuColors, p_menuOpacityMultiplier);
 	}
 }

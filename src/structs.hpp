@@ -1,3 +1,11 @@
+/*
+	Last Update Date: 2021-07-28
+	Trainer Base Created by: Xxsource98
+	Github Link: https://github.com/Xxsource98/SourceBase
+	Project License: GNU General Public License v3.0
+	Base Version: 1.1
+*/
+
 #pragma once
 #include <Windows.h>
 #include <iostream>
@@ -109,6 +117,7 @@ namespace Structs
 		RGBA descriptionLine;
 		RGBA descriptionRect;
 		RGBAF descriptionText;
+		RGBA sprites;
 
 		MENU_COLORS()
 		{
@@ -118,13 +127,33 @@ namespace Structs
 			navbarText = RGBAF(210, 218, 226, 255, eFont::FontChaletComprimeCologne);
 			background = RGBA(30, 39, 46, 170);
 			optionText = RGBAF(210, 218, 226, 255, eFont::FontChaletComprimeCologne);
-			scroller = RGBA(210, 218, 226, 245);
+			scroller = RGBA(210, 218, 226, 235); // 245
 			selectedOptionText = RGBAF(30, 39, 46, 255, eFont::FontChaletComprimeCologne);
 			footerRect = RGBA(15, 15, 15, 245);
 			footerText = RGBAF(210, 218, 226, 255, eFont::FontChaletComprimeCologne);
 			descriptionLine = RGBA(255, 255, 255, 245);
 			descriptionRect = RGBA(15, 15, 15, 160);
 			descriptionText = RGBAF(210, 218, 226, 255, eFont::FontChaletComprimeCologne);
+			sprites = RGBA(255, 255, 255, 255);
+		}
+
+		void UpdateAlpha(MENU_COLORS defaultColors, float alphaMultiplier)
+		{
+			mainRect.a = (int)((float)defaultColors.mainRect.a * alphaMultiplier);
+			mainText.a = (int)((float)defaultColors.mainText.a * alphaMultiplier);
+			navbarRect.a = (int)((float)defaultColors.navbarRect.a * alphaMultiplier);
+			mainRect.a = (int)((float)defaultColors.mainRect.a * alphaMultiplier);
+			navbarText.a = (int)((float)defaultColors.navbarText.a * alphaMultiplier);
+			background.a = (int)((float)defaultColors.background.a * alphaMultiplier);
+			optionText.a = (int)((float)defaultColors.optionText.a * alphaMultiplier);
+			scroller.a = (int)((float)defaultColors.scroller.a * alphaMultiplier);
+			selectedOptionText.a = (int)((float)defaultColors.selectedOptionText.a * alphaMultiplier);
+			footerRect.a = (int)((float)defaultColors.footerRect.a * alphaMultiplier);
+			footerText.a = (int)((float)defaultColors.footerText.a * alphaMultiplier);
+			descriptionLine.a = (int)((float)defaultColors.descriptionLine.a * alphaMultiplier);
+			descriptionRect.a = (int)((float)defaultColors.descriptionRect.a * alphaMultiplier);
+			descriptionText.a = (int)((float)defaultColors.descriptionText.a * alphaMultiplier);
+			sprites.a = (int)((float)defaultColors.sprites.a * alphaMultiplier);
 		}
 	};
 	
